@@ -34,10 +34,7 @@
   
   encedData = [BlowFishUtils encryptTextWithPhrase:targetText phrase:[phraseField stringValue]];
 
-  NSAttributedString* et = [[NSAttributedString alloc] initWithString:[encedData description]];
-  [[encryptField textStorage] beginEditing];
-  [[encryptField textStorage] setAttributedString:et];
-  [[encryptField textStorage] endEditing];
+  [encryptField setString:[encedData description]];
   
 }
 
@@ -52,10 +49,7 @@
   }
   else
   {
-    NSAttributedString* et = [[NSAttributedString alloc] initWithString:decedText];
-    [[encryptField textStorage] beginEditing];
-    [[encryptField textStorage] setAttributedString:et];
-    [[encryptField textStorage] endEditing];
+    [encryptField setString:decedText];
   }
 }
 
@@ -111,11 +105,7 @@
     }
   }
 
-  NSAttributedString *et = [[NSAttributedString alloc] initWithString:content];
-  [[encryptField textStorage] beginEditing];
-  [[encryptField textStorage] setAttributedString:et];
-  [[encryptField textStorage] endEditing];
-
+  [encryptField setString:content];
   return;
 }
 
