@@ -83,11 +83,13 @@
   EVP_CIPHER_CTX_init(&ctx);
   EVP_DecryptInit_ex(&ctx, EVP_bf_cbc(), NULL, (const unsigned char *)[key value], v);
 
-  obuff = calloc(ilen + (EVP_CIPHER_CTX_block_size(&ctx) + 1), sizeof(unsigned char));
+  NSInteger blocklen = EVP_CIPHER_CTX_block_size(&ctx);
 
-  for (i = 0; i < (ilen / 8); i++)
+  obuff = calloc((ilen + blocklen), sizeof(unsigned char));
+
+  for (i = 0; i < (ilen / blocklen); i++)
   {
-    EVP_DecryptUpdate(&ctx, &obuff[olen], &templen, ibuff + (i * 8), 8);
+    EVP_DecryptUpdate(&ctx, &obuff[olen], &templen, ibuff + (i * blocklen), blocklen);
     olen += templen;
   }
 
