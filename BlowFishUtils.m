@@ -14,37 +14,35 @@
 
 + (NSData *)encryptTextWithPhrase:(NSString *)plainText phrase:(NSString *)passPhrase
 {
-  EVP_CIPHER_CTX       ctx;
+  EVP_CIPHER_CTX      ctx;
 
-  int                  templen       = 0;
-  NSInteger            i             = 0;
-  NSInteger            olen          = 0;
-  NSInteger            ilen          = [plainText lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
-  unsigned char        v[]           = { 1, 2, 3, 4, 5, 6, 7, 8 };
+  int                 templen        = 0;
+  int                 olen           = 0;
+  NSInteger           ilen           = [plainText lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+  unsigned char       v[]            = { 1, 2, 3, 4, 5, 6, 7, 8 };
   const unsigned char *ibuff         = (const unsigned char *)[plainText cStringUsingEncoding:NSUTF8StringEncoding];
   unsigned char       *obuff         = 0x00;
   NSData              *encryptedData = nil;
 
-  HashValue           *key           =
+  HashValue           *key =
     [[HashValue alloc] initHashValueMD5HashWithBytes:[passPhrase cStringUsingEncoding:NSUTF8StringEncoding] length:[
        passPhrase lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
 
   EVP_CIPHER_CTX_init(&ctx);
+/*  
   EVP_EncryptInit_ex(&ctx, EVP_bf_cbc(), NULL, (const unsigned char *)[key value], v);
+*/  
+  EVP_EncryptInit_ex(&ctx, EVP_bf_cbc(), NULL, NULL, v);
+  EVP_CIPHER_CTX_set_key_length(&ctx, 32);
+  EVP_EncryptInit_ex(&ctx, NULL, NULL, (const unsigned char *)[key value], NULL);
+
+#ifdef _DEBUG
+  NSLog(@"Key Length:%d(%d)",EVP_CIPHER_key_length(EVP_bf_cbc()),EVP_CIPHER_CTX_key_length(&ctx));
+#endif
 
   obuff = calloc(ilen + EVP_CIPHER_CTX_block_size(&ctx), sizeof(unsigned char));
 
-  for (i = 0; i < (ilen / BASE_ENCRYPT_LENGTH); i++)
-  {
-    EVP_EncryptUpdate(&ctx, &obuff[olen], &templen, &ibuff[olen], BASE_ENCRYPT_LENGTH);
-    olen += templen;
-  }
-
-  if (ilen % BASE_ENCRYPT_LENGTH)
-  {
-    EVP_EncryptUpdate(&ctx, &obuff[olen], &templen, &ibuff[olen], (ilen % BASE_ENCRYPT_LENGTH));
-    olen += templen;
-  }
+  EVP_EncryptUpdate(&ctx, obuff, &olen, ibuff, ilen);
 
   NSInteger finalSuccess = EVP_EncryptFinal_ex(&ctx, &obuff[olen], &templen);
 
@@ -65,33 +63,35 @@
 
 + (NSString *) decryptWithPhrase:(NSData *)encData phrase:(NSString *)passPhrase
 {
-  EVP_CIPHER_CTX       ctx;
+  EVP_CIPHER_CTX      ctx;
 
-  NSInteger            i           = 0;
-  NSInteger            ilen        = [encData length];
-  NSInteger            olen        = 0;
-  int                  templen     = 0;
-  unsigned char        v[]         = { 1, 2, 3, 4, 5, 6, 7, 8 }; /*** DO NOT CHANGE ***/
+  NSInteger           ilen         = [encData length];
+  int                 olen         = 0;
+  int                 templen      = 0;
+  unsigned char       v[]          = { 1, 2, 3, 4, 5, 6, 7, 8 }; /*** DO NOT CHANGE ***/
   const unsigned char *ibuff       = (const unsigned char *)[encData bytes];
   unsigned char       *obuff       = 0x00;
   NSString            *decedString = nil;
 
-  HashValue           *key         =
+  HashValue           *key =
     [[HashValue alloc] initHashValueMD5HashWithBytes:[passPhrase cStringUsingEncoding:NSUTF8StringEncoding] length:[
        passPhrase lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
 
   EVP_CIPHER_CTX_init(&ctx);
+/*
   EVP_DecryptInit_ex(&ctx, EVP_bf_cbc(), NULL, (const unsigned char *)[key value], v);
+*/
+  EVP_DecryptInit_ex(&ctx, EVP_bf_cbc(), NULL, NULL, v);
+  EVP_CIPHER_CTX_set_key_length(&ctx, 32);
+  EVP_DecryptInit_ex(&ctx, NULL, NULL, (const unsigned char *)[key value], NULL);
+  
+#ifdef _DEBUG
+  NSLog(@"Key Length:%d(%d)",EVP_CIPHER_key_length(EVP_bf_cbc()),EVP_CIPHER_CTX_key_length(&ctx));
+#endif
 
-  NSInteger blocklen = EVP_CIPHER_CTX_block_size(&ctx);
+  obuff = calloc(ilen, sizeof(unsigned char));
 
-  obuff = calloc((ilen + blocklen), sizeof(unsigned char));
-
-  for (i = 0; i < (ilen / blocklen); i++)
-  {
-    EVP_DecryptUpdate(&ctx, &obuff[olen], &templen, ibuff + (i * blocklen), blocklen);
-    olen += templen;
-  }
+  EVP_DecryptUpdate(&ctx, obuff, &olen, ibuff, ilen);
 
   NSInteger finalSuccess = EVP_DecryptFinal_ex(&ctx, &obuff[olen], &templen);
 
