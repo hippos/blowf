@@ -11,7 +11,7 @@
 @interface blowfAppDelegate : NSObject<NSApplicationDelegate>
 {
   NSWindow    *window;
-  NSTextView *encryptField;
+  NSTextView  *encryptField;
   NSTextField *phraseField;
   NSData      *encedData;
 }
@@ -25,7 +25,15 @@
 - (IBAction)opencrypto:(id)sender;
 - (IBAction)encrypt:(id)sender;
 - (IBAction)decrypt:(id)sender;
+- (IBAction)saveAs:(id)sender;
+- (IBAction)clear:(id)sender;
 
-- (void)selectFileSheetDidEnd:(NSOpenPanel *)openpanel returnCode:(int)returnCode contextInfo:(id)inf;
+- (void) selectFileSheetDidEnd:(NSOpenPanel *)openpanel returnCode:(int)returnCode contextInfo:(id)inf;
+- (void) saveFileAsSheetDidEnd:(NSSavePanel *)savePanel returnCode:(int)returnCode contextInfo:(id)inf;
+
+- (BOOL) validateMenuItem:(NSMenuItem *)menuItem;
+
+- (void)    setEncedData:(NSData *)value;
+- (NSData *)encedData;
 
 @end
