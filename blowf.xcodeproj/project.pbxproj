@@ -14,6 +14,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A2CB80EB11934C8A005CB959 /* BlowFishUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CB80E811934C8A005CB959 /* BlowFishUtils.m */; };
 		A2CB80EC11934C8A005CB959 /* HashValue.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CB80EA11934C8A005CB959 /* HashValue.m */; };
+		A2D338E7119C895600ED9EB1 /* DDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D338E6119C895600ED9EB1 /* DDTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		A2CB80E811934C8A005CB959 /* BlowFishUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlowFishUtils.m; sourceTree = "<group>"; };
 		A2CB80E911934C8A005CB959 /* HashValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashValue.h; sourceTree = "<group>"; };
 		A2CB80EA11934C8A005CB959 /* HashValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashValue.m; sourceTree = "<group>"; };
+		A2D338E5119C895600ED9EB1 /* DDTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextView.h; sourceTree = "<group>"; };
+		A2D338E6119C895600ED9EB1 /* DDTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +100,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A2D338E5119C895600ED9EB1 /* DDTextView.h */,
+				A2D338E6119C895600ED9EB1 /* DDTextView.m */,
 				A2CB80E711934C8A005CB959 /* BlowFishUtils.h */,
 				A2CB80E811934C8A005CB959 /* BlowFishUtils.m */,
 				A2CB80E911934C8A005CB959 /* HashValue.h */,
@@ -185,6 +190,7 @@
 				256AC3DA0F4B6AC300CF3369 /* blowfAppDelegate.m in Sources */,
 				A2CB80EB11934C8A005CB959 /* BlowFishUtils.m in Sources */,
 				A2CB80EC11934C8A005CB959 /* HashValue.m in Sources */,
+				A2D338E7119C895600ED9EB1 /* DDTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +254,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
