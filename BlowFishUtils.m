@@ -36,9 +36,8 @@
   EVP_CIPHER_CTX_set_key_length(&ctx, 32);
   EVP_EncryptInit_ex(&ctx, NULL, NULL, (const unsigned char *)[key value], NULL);
 
-#ifdef _DEBUG
-  NSLog(@"Key Length:%d(%d)",EVP_CIPHER_key_length(EVP_bf_cbc()),EVP_CIPHER_CTX_key_length(&ctx));
-#endif
+  /* for Debug */
+  DLog(@"Key Length:%d(%d)",EVP_CIPHER_key_length(EVP_bf_cbc()),EVP_CIPHER_CTX_key_length(&ctx));
 
   obuff = calloc(ilen + EVP_CIPHER_CTX_block_size(&ctx), sizeof(unsigned char));
 
@@ -85,9 +84,8 @@
   EVP_CIPHER_CTX_set_key_length(&ctx, 32);
   EVP_DecryptInit_ex(&ctx, NULL, NULL, (const unsigned char *)[key value], NULL);
   
-#ifdef _DEBUG
-  NSLog(@"Key Length:%d(%d)",EVP_CIPHER_key_length(EVP_bf_cbc()),EVP_CIPHER_CTX_key_length(&ctx));
-#endif
+  /* for Debug */
+  DLog(@"Key Length:%d(%d)",EVP_CIPHER_key_length(EVP_bf_cbc()),EVP_CIPHER_CTX_key_length(&ctx));
 
   obuff = calloc(ilen, sizeof(unsigned char));
 
