@@ -21,6 +21,8 @@
 @property (assign) IBOutlet NSTextField *phraseField;
 @property (assign) NSData               *encedData;
 
++ (blowfAppDelegate *)sharedAppDelegate;
+
 - (IBAction)opentext:(id)sender;
 - (IBAction)opencrypto:(id)sender;
 - (IBAction)encrypt:(id)sender;

@@ -16,6 +16,11 @@
 @synthesize encedData;
 @synthesize encryptField,phraseField;
 
++ (blowfAppDelegate *)sharedAppDelegate
+{
+  return (blowfAppDelegate *) [[NSApplication sharedApplication] delegate];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
   // Insert code here to initialize your application
