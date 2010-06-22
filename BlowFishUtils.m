@@ -57,6 +57,7 @@
   }
 
   free(obuff);
+  [key release];
   return encryptedData;
 }
 
@@ -104,8 +105,9 @@
 
   EVP_CIPHER_CTX_cleanup(&ctx);
   free(obuff);
+  [key release];
 
-  return decedString;
+  return [decedString autorelease];
 }
 
 @end
